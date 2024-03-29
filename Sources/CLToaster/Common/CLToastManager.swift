@@ -11,10 +11,10 @@ protocol CLToastRepository {
   func dequeue() -> CLToastUIKitData?
 }
 
-final class CLToastManager: CLToastRepository {
+final class CLToastRepositoryImpl: CLToastRepository {
   fileprivate(set) var priorityQueue = PriorityQueue<CLToastUIKitData>(order: <)
   func dequeue() -> CLToastUIKitData? {
-    priorityQueue.removeFirst()
+    priorityQueue.pop()
   }
   
   func enqueue(data: CLToastUIKitData) {
