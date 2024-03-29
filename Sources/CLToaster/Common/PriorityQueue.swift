@@ -149,9 +149,11 @@ extension PriorityQueue {
       var childIndex = index * 2 + 1
       if
         childIndex < (heap.count - 1),
-        ordered(heap[childIndex], heap[childIndex + 1]) { childIndex += 1 }
+        ordered(heap[childIndex], heap[childIndex + 1]) {
+        childIndex += 1
+      }
       
-      if !ordered(heap[index], heap[childIndex]) { break }
+      if ordered(heap[childIndex], heap[index]) { break }
       heap.swapAt(index, childIndex)
       index = childIndex
     }
@@ -159,10 +161,8 @@ extension PriorityQueue {
   
   mutating func swim(_ index: Int) {
     var index = index
-    let parent = heap[(index - 1) / 2]
-    let currentNode = heap[index]
     
-    while index > 0, ordered(parent, currentNode) {
+    while index > 0, !ordered(heap[index], heap[(index - 1) / 2]) {
       var parentIndex = (index - 1) / 2
       heap.swapAt(parentIndex, index)
       index = parentIndex
