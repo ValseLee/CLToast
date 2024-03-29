@@ -31,6 +31,8 @@ public struct CLToastStyle {
   public var height: CGFloat = 100
   public var backgroundColor: UIColor = .systemGray2
   
+  public var presentPriority: CLToastPriority = .default
+  
   /**
    - Properties: ToastView
    */
@@ -51,4 +53,10 @@ public struct CLToastStyle {
   public init(title: String) {
     self.title = title
   }
+}
+
+public enum CLToastPriority: Int {
+  case urgent = 3
+  case `default` = 2
+  case `lazy` = 1
 }
