@@ -77,7 +77,6 @@ extension PriorityQueue {
       // find the min priority element (ironically using max here)
       if let discard = heap.max(by: ordered) {
         if ordered(discard, element) { return element }
-        // if
         push(element)
         remove(discard)
         return discard
@@ -94,8 +93,10 @@ extension PriorityQueue {
     if heap.isEmpty { return nil }
     let count = heap.count
     if count == 1 { return heap.removeFirst() }
-    
-    return heap.removeLast()
+    heap.swapAt(0, heap.count - 1)
+    let removeTarget = heap.removeLast()
+    sink(0)
+    return removeTarget
   }
   
   /// Removes the first occurence of a particular item. Finds it by value comparison using `==` O(n)
@@ -136,13 +137,6 @@ extension PriorityQueue {
       lastCount = heap.count
       remove(item)
     }
-  }
-  
-  mutating func removeFirst() -> T? {
-    let max = heap[0]
-    heap.swapAt(0, heap.count - 1)
-    sink(0)
-    return heap.removeFirst()
   }
 }
 
